@@ -9,41 +9,23 @@ import java.awt.*;
 
 public class View extends JFrame {
 
-    public View(){
+
+    public View(JPanel typeOfView){
         JPanel titleContainer = new JPanel();
         JLabel title = new JLabel("Contacts");
         title.setFont(new Font("Serif", Font.PLAIN, 25));
         titleContainer.add(title);
-        setTitle("Welcome");
         setSize(700, 500);
         this.setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        JPanel panel = createListingPanelForAll();
-        add(BorderLayout.CENTER, new JScrollPane(panel));
+        add(BorderLayout.CENTER, new JScrollPane(typeOfView));
         add(titleContainer, BorderLayout.NORTH);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
-    public View(Contact contact){
-        JPanel titleContainer = new JPanel();
-        JLabel title = new JLabel("1 Matching Contact(s):");
-        title.setFont(new Font("Serif", Font.PLAIN, 25));
-        titleContainer.add(title);
-        setTitle("Welcome");
-        setSize(700, 500);
-        this.setResizable(false);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-        JPanel panel = createListingPanelForOne(contact);
-        add(BorderLayout.CENTER, new JScrollPane(panel));
-        add(titleContainer, BorderLayout.NORTH);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setVisible(true);
-    }
-
-    public static JPanel addContactstoDisplay(Contact contact){
+    public static JPanel createContactDisplayPanel(Contact contact){
         String newWorkNo = String.valueOf(contact.getWorkNumber());
 
         if(newWorkNo.length() == 7) {
@@ -82,7 +64,7 @@ public class View extends JFrame {
         int listSize = contactController.getContacts().size();
         panel.setLayout(new GridLayout(listSize/2, 2, 10, 10));
         for (int i=0; i < listSize; i++) {
-            panel.add(addContactstoDisplay(contactController.getContacts().get(i)));
+            panel.add(createContactDisplayPanel(contactController.getContacts().get(i)));
         }
         return panel;
     }
@@ -92,7 +74,7 @@ public class View extends JFrame {
         JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new GridLayout(1, 1, 10, 10));
-        panel.add(addContactstoDisplay(contact));
+        panel.add(createContactDisplayPanel(contact));
         return panel;
     }
 }

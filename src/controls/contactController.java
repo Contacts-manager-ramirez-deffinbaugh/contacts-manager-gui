@@ -1,10 +1,7 @@
 package controls;
 
 import contacts.Contact;
-
-
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,13 +11,13 @@ import java.util.List;
 
 public class contactController {
 
-    private static ArrayList<Contact> contacts = new ArrayList<>();
+    private static final ArrayList<Contact> contacts = new ArrayList<>();
 
 
     public static ArrayList<Contact> getContacts() {
         return contacts;
     }
-     public static void loadContacts() {
+    public static void loadContacts() {
          try {
              getContactsFromList();
          } catch (IOException e) {
@@ -28,13 +25,9 @@ public class contactController {
          }
      }
 
-    public static void exit() {
-        try {
+    public static void exit() throws IOException {
             saveContactList();
             System.exit(0);
-        } catch (IOException e) {
-           //TODO print an error message
-        }
     }
     private static List<String> getFileStringsFromContacts() {
         List<String> contactStrings = new ArrayList<>();
@@ -47,10 +40,8 @@ public class contactController {
 
     public static void saveContactList() throws IOException {
         Path filepath = Paths.get("contacts.txt");
-        //write to file
         List<String> fileStrings = getFileStringsFromContacts();
         Files.write(filepath, fileStrings);
-
     }
 
     public static boolean contactExists(String nameInput) {
@@ -61,9 +52,6 @@ public class contactController {
         }
         return false;
     }
-//    public static void addContact(String nameInput, long numberInput){
-//        contacts.add(new Contact(nameInput, numberInput));
-//    }
 
 
     private static void getContactsFromList() throws IOException {
@@ -91,8 +79,6 @@ public class contactController {
         System.out.println(contactList);
         return contactList;
     }
-
-
 
     public static String verifyUserInput(String nameInput, String homePhone, String workPhone, String address) {
         if(nameInput.trim().equals("") || homePhone.trim().equalsIgnoreCase("")) {

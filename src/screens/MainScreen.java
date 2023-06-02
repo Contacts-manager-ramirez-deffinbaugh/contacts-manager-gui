@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MainScreen extends JFrame {
     private JPanel mainPanel;
@@ -34,13 +35,15 @@ public class MainScreen extends JFrame {
         viewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new View();
+               new View(View.createListingPanelForAll());
             }
         });
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        exitButton.addActionListener(e -> {
+            try {
                 contactController.exit();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Something went wrong. Your contacts may be lost.",
+                        "Uh Oh", JOptionPane.ERROR_MESSAGE);
             }
         });
         addButton.addActionListener(new ActionListener() {
@@ -59,7 +62,7 @@ public class MainScreen extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DeleteScreen2();
+                new DeleteScreen2(new JPanel());
 
             }
         });
