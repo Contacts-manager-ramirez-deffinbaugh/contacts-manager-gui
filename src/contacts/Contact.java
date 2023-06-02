@@ -37,12 +37,6 @@ public class Contact {
     }
 
 
-
-    public void displayContacts() {
-        //TODO format this
-        System.out.println(name + " | " + phoneNumber);
-    }
-
     public String toCSV() {
         //TODO does this need a new line?
         return name + "," + phoneNumber + "," + workNumber + "," + address;

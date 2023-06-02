@@ -21,7 +21,7 @@ public class contactController {
          try {
              getContactsFromList();
          } catch (IOException e) {
-             e.printStackTrace();
+             System.out.println("couldn't load contacts. idk man");
          }
      }
 
@@ -76,7 +76,6 @@ public class contactController {
         Path filepath = Paths.get("contacts.txt");
         //read from file
         List<String> contactList = Files.readAllLines(filepath);
-        System.out.println(contactList);
         return contactList;
     }
 
@@ -96,7 +95,6 @@ public class contactController {
                                 message, "Select an Option...", JOptionPane.YES_NO_OPTION);
 
                         // 0=yes, 1=no, 2=cancel
-                        System.out.println(input);
                         if(input == 1) {
                             return "Contact \""+nameInput+ "\" not overwritten.";
                         } else {
@@ -105,7 +103,6 @@ public class contactController {
 
 
                                 long homePhoneLong = Long.parseLong(homePhone);
-                                System.out.println(String.valueOf(homePhoneLong).length());
 
                                 if(homePhone.length() != 10 && homePhone.length() != 7) {
                                     return "Please enter a valid 7 or 10 digit number.";

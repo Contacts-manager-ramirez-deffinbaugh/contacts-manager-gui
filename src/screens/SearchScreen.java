@@ -52,12 +52,10 @@ public class SearchScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userInput = name.getText();
-                System.out.println("im running not");
 
 //                performSearch(userInput);
 
                 int listSize = contactController.getContacts().size();
-                System.out.println(listSize);
                 boolean found = false;
                 for(int i = 0; i < listSize; i++){
                     if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
@@ -143,12 +141,10 @@ public class SearchScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userInput = name.getText();
-                System.out.println("im running from contact dude");
 //                performSearch(userInput);
 
                 int listSize = contactController.getContacts().size();
                 boolean found = false;
-                System.out.println(listSize);
                 for(int i = 0; i < listSize; i++){
                     if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                         found = true;
