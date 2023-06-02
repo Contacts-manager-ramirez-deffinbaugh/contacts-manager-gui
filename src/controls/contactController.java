@@ -99,16 +99,10 @@ public class contactController {
                             return "Contact \""+nameInput+ "\" not overwritten.";
                         } else {
                             try {
-
-
-
                                 long homePhoneLong = Long.parseLong(homePhone);
-
                                 if(homePhone.length() != 10 && homePhone.length() != 7) {
                                     return "Please enter a valid 7 or 10 digit number.";
                                 }
-
-
 
                                 if(workPhone.trim().equals("") && address.trim().equals("")) {
                                     contacts.set(i,new Contact(nameInput, homePhoneLong));
