@@ -60,7 +60,7 @@ public class SearchScreen extends JFrame {
                 System.out.println(listSize);
                 boolean found = false;
                 for(int i = 0; i < listSize; i++){
-                    if(contactController.getContacts().get(i).getName().equals(userInput)) {
+                    if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                         found = true;
                         new SearchScreen(locatedResults(contactController.getContacts().get(i)));
                         dispose();
@@ -150,7 +150,7 @@ public class SearchScreen extends JFrame {
                 boolean found = false;
                 System.out.println(listSize);
                 for(int i = 0; i < listSize; i++){
-                    if(contactController.getContacts().get(i).getName().equals(userInput)) {
+                    if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                         found = true;
                         new SearchScreen(locatedResults(contactController.getContacts().get(i)));
                     }

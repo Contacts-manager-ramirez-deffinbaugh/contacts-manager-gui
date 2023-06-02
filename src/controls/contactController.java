@@ -55,7 +55,7 @@ public class contactController {
 
     public static boolean contactExists(String nameInput) {
         for(Contact contact : contacts) {
-            if(contact.getName().equals(nameInput)) {
+            if(contact.getName().equalsIgnoreCase(nameInput)) {
                 return true;
             }
         }
@@ -95,7 +95,7 @@ public class contactController {
 
 
     public static String verifyUserInput(String nameInput, String homePhone, String workPhone, String address) {
-        if(nameInput.trim().equals("") || homePhone.trim().equals("")) {
+        if(nameInput.trim().equals("") || homePhone.trim().equalsIgnoreCase("")) {
 
             return "Please fill out all required fields";
         }
@@ -121,8 +121,8 @@ public class contactController {
                                 long homePhoneLong = Long.parseLong(homePhone);
                                 System.out.println(String.valueOf(homePhoneLong).length());
 
-                                if(String.valueOf(homePhoneLong).length() != 10) {
-                                    return "Please enter a valid 10 digit number.";
+                                if(homePhone.length() != 10 && homePhone.length() != 7) {
+                                    return "Please enter a valid 7 or 10 digit number.";
                                 }
 
 
@@ -133,14 +133,14 @@ public class contactController {
                                     contacts.set(i,new Contact(nameInput, homePhoneLong,address));
                                 }else if(address.trim().equals("")) {
                                     long workPhoneLong = Long.parseLong(workPhone);
-                                    if(String.valueOf(workPhoneLong).length() != 10) {
-                                        return "Please enter a valid 10 digit number.";
+                                    if(workPhone.length() != 10 && workPhone.length() != 7) {
+                                        return "Please enter a valid 7 or 10 digit number.";
                                     }
                                     contacts.set(i,new Contact(nameInput, homePhoneLong,workPhoneLong));
                                 } else {
                                     long workPhoneLong = Long.parseLong(workPhone);
-                                    if(String.valueOf(workPhoneLong).length() != 10) {
-                                        return "Please enter a valid 10 digit number.";
+                                    if(workPhone.length() != 10 && workPhone.length() != 7) {
+                                        return "Please enter a valid 7 or 10 digit number.";
                                     }
                                     contacts.set(i,new Contact(nameInput, homePhoneLong,address,workPhoneLong));
                                 }
@@ -166,8 +166,8 @@ public class contactController {
             try {
                 long homePhoneLong = Long.parseLong(homePhone);
 
-                if(String.valueOf(homePhoneLong).length() != 10) {
-                    return "Please enter a valid 10 digit number.";
+                if(homePhone.length() != 10 && homePhone.length() != 7) {
+                    return "Please enter a valid 7 or 10 digit number.";
                 }
 
 
@@ -177,15 +177,15 @@ public class contactController {
                     contacts.add(new Contact(nameInput, homePhoneLong,address));
                 }else if(address.trim().equals("")) {
                     long workPhoneLong = Long.parseLong(workPhone);
-                    if(String.valueOf(workPhoneLong).length() != 10) {
-                        return "Please enter a valid 10 digit number.";
+                    if(workPhone.length() != 10 && workPhone.length() != 7) {
+                        return "Please enter a valid 7 or 10 digit number.";
                     }
 
                     contacts.add(new Contact(nameInput, homePhoneLong,workPhoneLong));
                 } else {
                     long workPhoneLong = Long.parseLong(workPhone);
-                    if(String.valueOf(workPhoneLong).length() != 10) {
-                        return "Please enter a valid 10 digit number.";
+                    if(workPhone.length() != 10 && workPhone.length() != 7) {
+                        return "Please enter a valid 7 or 10 digit number.";
                     }
                     contacts.add(new Contact(nameInput, homePhoneLong,address,workPhoneLong));
                 }

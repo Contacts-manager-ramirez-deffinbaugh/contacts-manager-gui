@@ -60,7 +60,7 @@ public class DeleteScreen2 extends JFrame {
                 System.out.println(listSize);
                 boolean found = false;
                 for(int i = 0; i < listSize; i++){
-                    if(contactController.getContacts().get(i).getName().equals(userInput)) {
+                    if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                         String message = "<html>Are you sure you want to delete the contact \""+userInput+"\"?<br>It cannot be undone!</html>";
                         found = true;
                         int input = JOptionPane.showConfirmDialog(null,
@@ -76,7 +76,7 @@ public class DeleteScreen2 extends JFrame {
                 }
                 if(!found){
 
-                    new SearchScreen(noLocate());
+                    new DeleteScreen2(noLocate());
                     dispose();
                 }
 
@@ -159,7 +159,7 @@ public class DeleteScreen2 extends JFrame {
                 System.out.println(listSize);
                 boolean found = false;
                 for(int i = 0; i < listSize; i++){
-                    if(contactController.getContacts().get(i).getName().equals(userInput)) {
+                    if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                         found = true;
                         int input = JOptionPane.showConfirmDialog(null,
                                 "Are you sure you want to delete this contact? It cannot be undone!", "Select an Option...", JOptionPane.YES_NO_OPTION);

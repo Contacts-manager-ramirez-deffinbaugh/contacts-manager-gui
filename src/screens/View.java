@@ -15,7 +15,7 @@ public class View extends JFrame {
         title.setFont(new Font("Serif", Font.PLAIN, 25));
         titleContainer.add(title);
         setTitle("Welcome");
-        setSize(500, 375);
+        setSize(700, 500);
         this.setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -32,7 +32,7 @@ public class View extends JFrame {
         title.setFont(new Font("Serif", Font.PLAIN, 25));
         titleContainer.add(title);
         setTitle("Welcome");
-        setSize(500, 375);
+        setSize(700, 500);
         this.setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -44,16 +44,29 @@ public class View extends JFrame {
     }
 
     public static JPanel addContactstoDisplay(Contact contact){
-        String newWorkNo = "";
-        if(contact.getWorkNumber() != 0) {
-            newWorkNo = String.valueOf(contact.getWorkNumber());
-            newWorkNo = newWorkNo.substring(0, 3) + "-" + newWorkNo.substring(3,6)+ "-" + newWorkNo.substring(6);
+        String newWorkNo = String.valueOf(contact.getWorkNumber());
+
+        if(newWorkNo.length() == 7) {
+            newWorkNo = newWorkNo.substring(0, 3) + "-" + newWorkNo.substring(3);
+        } else if(newWorkNo.length() == 10) {
+            newWorkNo = "(" +newWorkNo.substring(0, 3) + ") " + newWorkNo.substring(3,6)+ "-" + newWorkNo.substring(6);
+        } else {
+            newWorkNo = "";
+        }
+
+        String address = "";
+        if (!contact.getAddress().equals("N/A")) {
+            address = contact.getAddress();
         }
 
         String homePhone = String.valueOf(contact.getPhoneNumber());
-        homePhone = homePhone.substring(0, 3) + "-" + homePhone.substring(3,6)+ "-" + homePhone.substring(6);
+        if(homePhone.length() == 7) {
+            homePhone = homePhone.substring(0, 3) + "-" + homePhone.substring(3);
+        } else if(homePhone.length() == 10) {
+            homePhone = "("+homePhone.substring(0, 3) + ") " + homePhone.substring(3,6)+ "-" + homePhone.substring(6);
+        }
 
-        String outPut = "<html>Name: "+ contact.getName() +"<br>Home Phone: "+ homePhone +"<br>Work Phone: "+ newWorkNo + "<br>Address: "+ contact.getAddress()+ "</html>";
+        String outPut = "<html><strong>Name: "+ contact.getName() +"</strong><br>Home Phone: "+ homePhone +"<br>Work Phone: "+ newWorkNo + "<br>Address: "+ address + "</html>";
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
         panel.setPreferredSize(new Dimension(180,75));
