@@ -3,8 +3,6 @@ package screens;
 import controls.contactController;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MainScreen extends JFrame {
@@ -30,12 +28,7 @@ public class MainScreen extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
-        viewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               new View(View.createListingPanelForAll());
-            }
-        });
+        viewButton.addActionListener(e -> new View(View.createListingPanelForAll()));
         exitButton.addActionListener(e -> {
             try {
                 contactController.exit();
@@ -44,26 +37,9 @@ public class MainScreen extends JFrame {
                         "Uh Oh", JOptionPane.ERROR_MESSAGE);
             }
         });
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddContactScreen();
-            }
-        });
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SearchOrDelete(new JPanel(), new JButton("Search"));
-
-            }
-        });
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SearchOrDelete(new JPanel(), new JButton("Search and Delete"));
-
-            }
-        });
+        addButton.addActionListener(e -> new AddContactScreen());
+        searchButton.addActionListener(e -> new SearchOrDelete(new JPanel(), new JButton("Search")));
+        deleteButton.addActionListener(e -> new SearchOrDelete(new JPanel(), new JButton("Search and Delete")));
     }
 
     public static void main(String[] args) {
