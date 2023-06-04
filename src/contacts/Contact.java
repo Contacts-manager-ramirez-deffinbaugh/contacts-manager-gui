@@ -3,7 +3,6 @@ package contacts;
 public class Contact {
     private final String name;
     private final long phoneNumber;
-
     private final long workNumber;
     private final String address;
 
