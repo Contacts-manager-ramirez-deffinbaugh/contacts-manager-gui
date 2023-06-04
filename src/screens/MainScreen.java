@@ -1,8 +1,6 @@
 package screens;
 
-import contacts.Contact;
 import controls.contactController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,7 +53,6 @@ public class MainScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new SearchScreen(new JPanel());
                 new SearchOrDelete(new JPanel(), new JButton("Search"));
 
             }
@@ -63,7 +60,6 @@ public class MainScreen extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new DeleteScreen2(new JPanel());
                 new SearchOrDelete(new JPanel(), new JButton("Search and Delete"));
 
             }
