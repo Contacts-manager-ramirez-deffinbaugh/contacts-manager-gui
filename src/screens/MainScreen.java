@@ -55,7 +55,7 @@ public class MainScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SearchScreen();
+                new SearchScreen(new JPanel());
 
             }
         });
