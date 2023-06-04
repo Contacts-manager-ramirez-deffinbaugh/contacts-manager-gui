@@ -73,7 +73,7 @@ public class SearchOrDelete extends JFrame {
         int listSize = contactController.getContacts().size();
         boolean found = false;
         for(int i = 0; i < listSize; i++){
-            if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
+            if(contactController.compareName(i, userInput)) {
                 found = true;
                 SearchOrDelete screen = new SearchOrDelete(locatedResults(contactController.getContacts().get(i)), new JButton(searchOrDelete));
                 if(searchOrDelete.equals("Search and Delete")) {

@@ -72,6 +72,11 @@ public class contactController {
         }
     }
 
+    public static boolean compareName(int i, String comparison) {
+        return contacts.get(i).getName().equalsIgnoreCase(comparison);
+    }
+
+
     private static List<String> getFileList() throws IOException {
         Path filepath = Paths.get("contacts.txt");
         //read from file
