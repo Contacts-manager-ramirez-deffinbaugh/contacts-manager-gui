@@ -55,14 +55,16 @@ public class MainScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SearchScreen(new JPanel());
+//                new SearchScreen(new JPanel());
+                new SearchOrDelete(new JPanel(),new JLabel("Search for a Contact to Delete"), new JButton("Search"));
 
             }
         });
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DeleteScreen2(new JPanel());
+//                new DeleteScreen2(new JPanel());
+                new SearchOrDelete(new JPanel(),new JLabel("Search for a Contact to Delete"), new JButton("Search and Delete"));
 
             }
         });
