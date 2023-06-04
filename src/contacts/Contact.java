@@ -38,7 +38,6 @@ public class Contact {
 
 
     public String toCSV() {
-        //TODO does this need a new line?
         return name + "," + phoneNumber + "," + workNumber + "," + address;
     }
 
@@ -47,42 +46,17 @@ public class Contact {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public long getWorkNumber() {
         return workNumber;
-    }
-
-    public void setWorkNumber(long workNumber) {
-        this.workNumber = workNumber;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "name='" + name + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", workNumber=" + workNumber +
-                ", address='" + address + '\'' +
-                '}';
-    }
-
     public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
 }
