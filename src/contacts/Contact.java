@@ -1,11 +1,11 @@
 package contacts;
 
 public class Contact {
-    private String name;
-    private long phoneNumber;
+    private final String name;
+    private final long phoneNumber;
 
-    private long workNumber;
-     private String address;
+    private final long workNumber;
+    private final String address;
 
     //constructors
     public Contact(String name, long phoneNumber) {
@@ -35,7 +35,6 @@ public class Contact {
         this.address = address;
         this.workNumber = workNumber;
     }
-
 
     public String toCSV() {
         return name + "," + phoneNumber + "," + workNumber + "," + address;
