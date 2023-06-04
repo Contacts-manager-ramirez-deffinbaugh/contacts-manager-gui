@@ -29,13 +29,14 @@ public class SearchOrDelete extends JFrame {
         return resultsContainer;
     }
 
-    public SearchOrDelete(JPanel resultsContainer, JLabel prompt, JButton button){
+    public SearchOrDelete(JPanel resultsContainer, JButton button){
         setSize(500, 375);
         this.setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new BorderLayout());
         JPanel searchPromptContainer = new JPanel(new BorderLayout());
+        JLabel prompt = new JLabel("Search for a Contact");
         prompt.setBorder(new EmptyBorder(0, 10, 10, 10));
         prompt.setHorizontalAlignment(JLabel.CENTER);
         prompt.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -59,54 +60,44 @@ public class SearchOrDelete extends JFrame {
 
         button.addActionListener(e -> {
             if(button.getText().equals("Search and Delete")) {
-                DeleteContact(name);
+               SearchForContact(name, "Search and Delete");
             }
             else {
-                SearchForContact(name);
+                SearchForContact(name, "Search");
             }
         });
     }
 
-    public void SearchForContact(JTextField name) {
+    public void SearchForContact(JTextField name, String searchOrDelete) {
         String userInput = name.getText();
         int listSize = contactController.getContacts().size();
         boolean found = false;
         for(int i = 0; i < listSize; i++){
             if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
                 found = true;
-                new SearchOrDelete(locatedResults(contactController.getContacts().get(i)),new JLabel("Search for a Contact"), new JButton("Search"));
+                SearchOrDelete screen = new SearchOrDelete(locatedResults(contactController.getContacts().get(i)), new JButton(searchOrDelete));
+                if(searchOrDelete.equals("Search and Delete")) {
+                    deletePrompt(screen, i);
+                }
                 dispose();
             }
         }
         if(!found){
-
-            new SearchOrDelete(resultsPanelTemplate("No Matching Contacts Found"),new JLabel("Search for a Contact"), new JButton("Search"));
+            new SearchOrDelete(resultsPanelTemplate("No Matching Contacts Found"),new JButton(searchOrDelete));
             dispose();
         }
     }
 
-    public void DeleteContact(JTextField name) {
-        String userInput = name.getText();
-        int listSize = contactController.getContacts().size();
-        boolean found = false;
-        for(int i = 0; i < listSize; i++){
-            if(contactController.getContacts().get(i).getName().equalsIgnoreCase(userInput)) {
-                SearchOrDelete showContact = new SearchOrDelete(locatedResults(contactController.getContacts().get(i)),new JLabel("Search for a Contact to Delete"), new JButton("Search and Delete"));
-                found = true;
-                int input = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to delete this contact? It cannot be undone!", "Select an Option...", JOptionPane.YES_NO_OPTION);
-                // 0=yes, 1=no
-                if(input == 0) {
-                    contactController.getContacts().remove(contactController.getContacts().get(i));
-                    new SearchOrDelete(resultsPanelTemplate("Contact was successfully deleted"),new JLabel("Search for a Contact to Delete"), new JButton("Search and Delete"));
-                    showContact.dispose();
-                }
 
-            } dispose();
-        }
-        if(!found){
-            new SearchOrDelete(resultsPanelTemplate("No Matching Contacts Found"),new JLabel("Search for a Contact to Delete"), new JButton("Search and Delete"));
-            dispose();
+
+    public void deletePrompt(JFrame showContact, int i) {
+        int input = JOptionPane.showConfirmDialog(showContact,
+                "Are you sure you want to delete this contact? It cannot be undone!", "Select an Option...", JOptionPane.YES_NO_OPTION);
+        // 0=yes, 1=no
+        if(input == 0) {
+            contactController.getContacts().remove(contactController.getContacts().get(i));
+            new SearchOrDelete(resultsPanelTemplate("Contact was successfully deleted"), new JButton("Search and Delete"));
+            showContact.dispose();
         }
     }
 

@@ -56,7 +56,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                new SearchScreen(new JPanel());
-                new SearchOrDelete(new JPanel(),new JLabel("Search for a Contact"), new JButton("Search"));
+                new SearchOrDelete(new JPanel(), new JButton("Search"));
 
             }
         });
@@ -64,7 +64,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                new DeleteScreen2(new JPanel());
-                new SearchOrDelete(new JPanel(),new JLabel("Search for a Contact to Delete"), new JButton("Search and Delete"));
+                new SearchOrDelete(new JPanel(), new JButton("Search and Delete"));
 
             }
         });
