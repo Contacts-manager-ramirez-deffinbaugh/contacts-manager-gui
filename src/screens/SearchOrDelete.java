@@ -10,25 +10,6 @@ import java.awt.*;
 
 public class SearchOrDelete extends JFrame {
 
-
-
-    public static JPanel locatedResults(Contact contact) {
-        JPanel resultsContainer = resultsPanelTemplate("1 Matching Contact(s)");
-        JPanel contactInfo = View.createListingPanelForOne(contact);
-        resultsContainer.add(contactInfo, BorderLayout.SOUTH);
-        return resultsContainer;
-    }
-
-
-    public static JPanel resultsPanelTemplate(String message) {
-        JPanel resultsContainer = new JPanel(new BorderLayout());
-        JLabel resultText = new JLabel(message);
-        resultText.setHorizontalAlignment(JLabel.CENTER);
-        resultText.setFont(new Font("Serif", Font.PLAIN, 25));
-        resultsContainer.add(resultText, BorderLayout.NORTH);
-        return resultsContainer;
-    }
-
     public SearchOrDelete(JPanel resultsContainer, JButton button){
         setSize(500, 375);
         this.setResizable(false);
@@ -60,12 +41,27 @@ public class SearchOrDelete extends JFrame {
 
         button.addActionListener(e -> {
             if(button.getText().equals("Search and Delete")) {
-               SearchForContact(name, "Search and Delete");
+                SearchForContact(name, "Search and Delete");
             }
             else {
                 SearchForContact(name, "Search");
             }
         });
+    }
+    public static JPanel locatedResults(Contact contact) {
+        JPanel resultsContainer = resultsPanelTemplate("1 Matching Contact(s)");
+        JPanel contactInfo = View.createListingPanelForOne(contact);
+        resultsContainer.add(contactInfo, BorderLayout.SOUTH);
+        return resultsContainer;
+    }
+
+    public static JPanel resultsPanelTemplate(String message) {
+        JPanel resultsContainer = new JPanel(new BorderLayout());
+        JLabel resultText = new JLabel(message);
+        resultText.setHorizontalAlignment(JLabel.CENTER);
+        resultText.setFont(new Font("Serif", Font.PLAIN, 25));
+        resultsContainer.add(resultText, BorderLayout.NORTH);
+        return resultsContainer;
     }
 
     public void SearchForContact(JTextField name, String searchOrDelete) {
@@ -87,8 +83,6 @@ public class SearchOrDelete extends JFrame {
             dispose();
         }
     }
-
-
 
     public void deletePrompt(JFrame showContact, int i) {
         int input = JOptionPane.showConfirmDialog(showContact,

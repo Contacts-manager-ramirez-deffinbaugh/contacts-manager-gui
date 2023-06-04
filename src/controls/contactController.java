@@ -80,108 +80,127 @@ public class contactController {
     private static List<String> getFileList() throws IOException {
         Path filepath = Paths.get("contacts.txt");
         //read from file
-        List<String> contactList = Files.readAllLines(filepath);
-        return contactList;
+        return Files.readAllLines(filepath);
     }
 
-    public static String verifyUserInput(String nameInput, String homePhone, String workPhone, String address) {
-        if(nameInput.trim().equals("") || homePhone.trim().equalsIgnoreCase("")) {
+    public static int handleExistingContact(String nameInput) {
+        int index = -2;
+            for (int i = 0; i < contactController.getContacts().size(); i++) {
+                if (contacts.get(i).getName().equalsIgnoreCase(nameInput)) {
+                    String message = "<html>This contact already exits.<br>Do you want to replace it?<html>";
+                    int input = JOptionPane.showConfirmDialog(null,
+                            message, "Select an Option...", JOptionPane.YES_NO_OPTION);
 
-            return "Please fill out all required fields";
-        }
-
-        else {
-
-            if(contactController.contactExists(nameInput)) {
-                for (int i = 0; i < contactController.getContacts().size(); i++) {
-                    if (contactController.getContacts().get(i).getName().equalsIgnoreCase(nameInput)) {
-                        String message = "<html>This contact already exits.<br>Do you want to replace it?<html>";
-                        int input = JOptionPane.showConfirmDialog(null,
-                                message, "Select an Option...", JOptionPane.YES_NO_OPTION);
-
-                        // 0=yes, 1=no, 2=cancel
-                        if(input == 1) {
-                            return "Contact \""+nameInput+ "\" not overwritten.";
-                        } else {
-                            try {
-                                long homePhoneLong = Long.parseLong(homePhone);
-                                if(homePhone.length() != 10 && homePhone.length() != 7) {
-                                    return "Please enter a valid 7 or 10 digit number.";
-                                }
-
-                                if(workPhone.trim().equals("") && address.trim().equals("")) {
-                                    contacts.set(i,new Contact(nameInput, homePhoneLong));
-                                } else if(workPhone.trim().equals("")) {
-                                    contacts.set(i,new Contact(nameInput, homePhoneLong,address));
-                                }else if(address.trim().equals("")) {
-                                    long workPhoneLong = Long.parseLong(workPhone);
-                                    if(workPhone.length() != 10 && workPhone.length() != 7) {
-                                        return "Please enter a valid 7 or 10 digit number.";
-                                    }
-                                    contacts.set(i,new Contact(nameInput, homePhoneLong,workPhoneLong));
-                                } else {
-                                    long workPhoneLong = Long.parseLong(workPhone);
-                                    if(workPhone.length() != 10 && workPhone.length() != 7) {
-                                        return "Please enter a valid 7 or 10 digit number.";
-                                    }
-                                    contacts.set(i,new Contact(nameInput, homePhoneLong,address,workPhoneLong));
-                                }
-
-
-
-                                //TODO check if contact exits, prompt user
-                                //TODO check for number of input fields
-//                addContact(nameInput, homePhoneLong);
-
-                                return "Contact \"" + nameInput + "\" added successfully";
-                            } catch (Exception ex) {
-                                return "Please enter a valid number";
-                            }
-                        }
-
+                    // 0=yes, 1=no, 2=cancel
+                    if(input == 0) {
+                        index = i;
                     }
+
                 }
-
             }
+            return index;
+    }
 
-            //TODO this can be switched to phone number validation
+    public static String handleCreation(String nameInput, long homePhoneLong, String workPhone, String address) {
+        long workPhoneLong;
+
+
+        if(workPhone.trim().equals("") && address.trim().equals("")) {
+            contacts.add(new Contact(nameInput, homePhoneLong));
+        } else if(!workPhone.trim().equals("") && !address.trim().equals("")) {
             try {
-                long homePhoneLong = Long.parseLong(homePhone);
-
-                if(homePhone.length() != 10 && homePhone.length() != 7) {
+                workPhoneLong = Long.parseLong(workPhone);
+                if (workPhone.length() != 10 && workPhone.length() != 7) {
                     return "Please enter a valid 7 or 10 digit number.";
                 }
-
-
-                if(workPhone.trim().equals("") && address.trim().equals("")) {
-                    contacts.add(new Contact(nameInput, homePhoneLong));
-                } else if(workPhone.trim().equals("")) {
-                    contacts.add(new Contact(nameInput, homePhoneLong,address));
-                }else if(address.trim().equals("")) {
-                    long workPhoneLong = Long.parseLong(workPhone);
-                    if(workPhone.length() != 10 && workPhone.length() != 7) {
-                        return "Please enter a valid 7 or 10 digit number.";
-                    }
-
-                    contacts.add(new Contact(nameInput, homePhoneLong,workPhoneLong));
-                } else {
-                    long workPhoneLong = Long.parseLong(workPhone);
-                    if(workPhone.length() != 10 && workPhone.length() != 7) {
-                        return "Please enter a valid 7 or 10 digit number.";
-                    }
-                    contacts.add(new Contact(nameInput, homePhoneLong,address,workPhoneLong));
+            }
+            catch(Exception e) {
+                return "Please enter a valid number.";
+            }
+            contacts.add(new Contact(nameInput, homePhoneLong,address,workPhoneLong));
+        } else if(address.trim().equals("")) {
+            try {
+                workPhoneLong = Long.parseLong(workPhone);
+                if (workPhone.length() != 10 && workPhone.length() != 7) {
+                    return "Please enter a valid 7 or 10 digit number.";
                 }
+            }
+            catch(Exception e) {
+                return "Please enter a valid number.";
+            }
+            contacts.add(new Contact(nameInput, homePhoneLong,workPhoneLong));
+        } else {
+            contacts.add(new Contact(nameInput, homePhoneLong,address));
+        }
+
+        return "Contact \"" + nameInput + "\" added successfully";
+    }
+
+
+    public static String handleOverwrite(String nameInput, long homePhone, String workPhone, String address, int i) {
+        long workPhoneLong;
 
 
 
-                //TODO check if contact exits, prompt user
-                //TODO check for number of input fields
-//                addContact(nameInput, homePhoneLong);
+        if(workPhone.trim().equals("") && address.trim().equals("")) {
+            contacts.set(i,new Contact(nameInput, homePhone));
+        } else if(!workPhone.trim().equals("") && !address.trim().equals("")) {
+            try {
+                workPhoneLong = Long.parseLong(workPhone);
+                if (workPhone.length() != 10 && workPhone.length() != 7) {
+                    return "Please enter a valid 7 or 10 digit number.";
+                }
+            }
+            catch(Exception e) {
+                return "Please enter a valid number.";
+            }
+            contacts.set(i,new Contact(nameInput, homePhone,address,workPhoneLong));
+        } else if(address.trim().equals("")) {
+            try {
+                workPhoneLong = Long.parseLong(workPhone);
+                if (workPhone.length() != 10 && workPhone.length() != 7) {
+                    return "Please enter a valid 7 or 10 digit number.";
+                }
+            }
+            catch(Exception e) {
+                return "Please enter a valid number.";
+            }
+            contacts.set(i,new Contact(nameInput, homePhone,workPhoneLong));
+        } else {
+            contacts.set(i,new Contact(nameInput, homePhone,address));
+        }
 
-                return "Contact \"" + nameInput + "\" added successfully";
-            } catch (Exception ex) {
-                return "Please enter a valid number";
+        return "Contact \"" + nameInput + "\" added successfully";
+    }
+
+    public static String verifyUserInput2(String nameInput, String homePhone, String workPhone, String address) {
+        if(homePhone.trim().equals("") || nameInput.trim().equals("")) {
+            return "Please enter all required fields";
+        }
+        long homePhoneLong;
+        try {
+            homePhoneLong = Long.parseLong(homePhone);
+            if (homePhone.length() != 10 && homePhone.length() != 7) {
+                return "Please enter a valid 7 or 10 digit number.";
             }
         }
+        catch(Exception e) {
+            return "Please enter a valid number.";
+        }
+
+
+
+        if(contactExists(nameInput)) {
+            int howToHandle = handleExistingContact(nameInput);
+            if(howToHandle == -2) {
+                return  "Contact \""+nameInput+ "\" not overwritten.";
+            } else {
+                return handleOverwrite(nameInput, homePhoneLong, workPhone, address, howToHandle);
+            }
+        } else {
+            return handleCreation(nameInput, homePhoneLong, workPhone, address);
+        }
+
     }
+
 }

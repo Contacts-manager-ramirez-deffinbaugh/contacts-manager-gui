@@ -36,7 +36,7 @@ public class AddContactScreen extends JFrame {
             String workPhone = workPhoneField.getText();
             String address = addressField.getText();
 
-            String text = contactController.verifyUserInput(name,homePhone,workPhone,address);
+            String text = contactController.verifyUserInput2(name,homePhone,workPhone,address);
 
             infoLabel.setFont(new Font("Serif", Font.PLAIN, 25));
             if(text.equals("Contact \"" + name + "\" added successfully")) {
