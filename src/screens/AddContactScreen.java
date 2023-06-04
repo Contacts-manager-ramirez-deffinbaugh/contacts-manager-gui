@@ -12,7 +12,6 @@ public class AddContactScreen extends JFrame {
     private JButton saveButton;
     private JPanel contactPanel;
     private JLabel nameLabel;
-
     private JLabel addressLabel;
     private JLabel workPhoneLabel;
     private JLabel homePhoneLabel;

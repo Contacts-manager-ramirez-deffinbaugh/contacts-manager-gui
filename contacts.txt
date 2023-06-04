@@ -12,5 +12,3 @@ Jessica Clark,3853285024,9463764738,N/A
 Elizabeth Hill,3859385832,0,N/A
 Daniel Adams,8375402843,6475837483,23 Willow Road Saint Paul Overland Park
 Jennifer Simmons,9305830293,0,N/A
-ffff,3333337,5366756,N/A
-ffff4,3333337,0,hdfghghfg
